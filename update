@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m '完善注释'
+git commit -m '添加 gitignore'
 git push 
