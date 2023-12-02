@@ -3,22 +3,29 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
 
-# 定义数据集类
+# 定义数据集类，处理Word2Vec模型的训练数据
 class Word2VecDataset(Dataset):
+    # 初始化数据集
     def __init__(self, text_data):
         self.text_data = text_data
+        # 将text_data中的词语转换为集合（set），去除重复的词语，然后再转换为列表（list）
         self.vocab = list(set(self.text_data))
+        # 创建一个从词语到索引的映射，每个词语被映射为一个索引
         self.word_to_index = {word: idx for idx, word in enumerate(self.vocab)}
+        # 创建一个从索引到词语的映射，每个索引对应于self.vocab中的一个词语
         self.index_to_word = {idx: word for idx, word in enumerate(self.vocab)}
 
+    # 返回数据集的大小
     def __len__(self):
         return len(self.text_data)
-
+    
+    # 返回目标词和上下文词
     def __getitem__(self, idx):
         target_word = self.word_to_index[self.text_data[idx]]
         context_words = [self.word_to_index[word] for word in self.get_context(idx)]
         return target_word, context_words
 
+    # 获取上下文词
     def get_context(self, idx, window_size=2):
         start = max(0, idx - window_size)
         end = min(len(self.text_data), idx + window_size + 1)
