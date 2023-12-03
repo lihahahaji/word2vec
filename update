@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m '完成论文精读'
+git commit -m '使用 Adagrad 作为优化器'
 git push 

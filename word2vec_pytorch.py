@@ -88,6 +88,11 @@ def train_word2vec_model(text_data, embed_size=100, num_epochs=5, learning_rate=
     # 使用随机梯度下降（SGD）优化器，学习率为 0.01
     optimizer = optim.SGD(model.parameters(), lr=learning_rate)
 
+    
+    # 论文中使用 Adagrad 优化器，学习率为 0.01
+    # optimizer = optim.Adagrad(model.parameters(), lr=learning_rate)
+
+
     for epoch in range(num_epochs):
         total_loss = 0
         for target, context in data_loader:
