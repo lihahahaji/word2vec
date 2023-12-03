@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m '添加 gitignore'
+git commit -m '完成论文精读'
 git push 
