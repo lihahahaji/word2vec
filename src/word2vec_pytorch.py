@@ -43,12 +43,44 @@ class SkipGramModel(nn.Module):
         self.in_embed = nn.Embedding(vocab_size, embed_size)
         self.out_embed = nn.Embedding(vocab_size, embed_size)
 
+        # 初始化嵌入层权重
+        self.in_embed.weight.data.uniform_(-0.5 / embed_size, 0.5 / embed_size)
+        self.out_embed.weight.data.uniform_(-0.5 / embed_size, 0.5 / embed_size)
+
     # 前向传播，计算目标词和上下文词之间的得分
     def forward(self, target, context):
         in_embeds = self.in_embed(target)
         out_embeds = self.out_embed(context)
+
+        # 计算得分
         scores = torch.matmul(in_embeds, out_embeds.t())
+
         return scores
+
+    # Negative Sampling 损失计算
+    def negative_sampling_loss(self, target, context, neg_samples):
+        in_embeds = self.in_embed(target)
+        out_embeds = self.out_embed(context)
+
+        # 计算正样本得分
+        positive_scores = torch.sum(in_embeds * out_embeds, dim=1).squeeze().sigmoid()
+
+        # 计算负样本得分
+        neg_embeds = self.out_embed(neg_samples)
+        negative_scores = torch.sum(-in_embeds * neg_embeds, dim=2).squeeze().sigmoid()
+
+        # 计算 Negative Log-Likelihood Loss
+        loss = -torch.log(positive_scores) - torch.sum(torch.log(negative_scores))
+        return loss.mean()
+
+# # 示例用法
+# vocab_size = 10000
+# embed_size = 300
+# model = SkipGramModel(vocab_size, embed_size)
+
+# # 假设 target, context, neg_samples 是合适的输入
+# loss = model.negative_sampling_loss(target, context, neg_samples)
+
 
 # 定义 CBOW 模型
 class CBOWModel(nn.Module):

@@ -132,7 +132,17 @@ $$
 
    在传统的Word2Vec中，Softmax函数用于计算目标词的概率分布。对于大型词汇表，这可能会导致计算开销巨大。Hierarchy Softmax是一种树状结构的概率计算方法，通过构建词汇表的树状结构，将计算复杂度从线性降低为对数级别，从而提高了效率。
 
+------
 
+负采样（Negative Sampling）和层次Softmax（Hierarchical Softmax）是为了解决Word2Vec模型中的计算效率问题而提出的两种优化方法。
+
+1. **Negative Sampling（负采样）**:
+   - 负采样最早是由Tomas Mikolov等人在论文《Distributed Representations of Words and Phrases and their Compositionality》中提出的。在原始的Skip-gram模型中，Softmax操作的计算成本较高，因为它涉及到整个词汇表的概率计算。为了降低计算复杂度，负采样引入了二分类任务，通过仅对少数负例进行概率更新，从而近似Softmax的计算。这使得训练更加高效。
+
+2. **Hierarchical Softmax（层次Softmax）**:
+   - 层次Softmax是由Frederic Morin和Yoshua Bengio在论文《Hierarchical Probabilistic Neural Network Language Model》中首次提出的。这种方法通过使用树状结构来组织词汇表，将Softmax计算的复杂度从线性的降低到对数级别。每个单词都在树中有一个路径，而Softmax操作只需在路径上移动，而不是计算整个词汇表的概率。这在大型词汇表上提高了计算效率。
+
+这两种优化方法都旨在加速Word2Vec模型的训练过程，使其更适用于大规模数据集。这些方法的引入使得Word2Vec能够更有效地学习单词的嵌入表示。
 
 ## gensim - word2vec
 
