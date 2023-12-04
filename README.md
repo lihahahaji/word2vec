@@ -157,7 +157,7 @@ print(f"Most similar words to '地球': {similar_words}")
 
 #### 实验结果:
 
-![image-20231204112011207](./assets/论文复现.assets/image-20231204112011207.png)
+![image-20231204112011207](./assets/实验.assets/image-20231204112011207.png)
 
 
 
