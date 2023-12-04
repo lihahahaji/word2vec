@@ -1,39 +1,23 @@
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-import string
+import re
+import jieba
 
-nltk.download('punkt')
-nltk.download('stopwords')
+def process_chinese_file(input_file, output_file):
+    with open(input_file, 'r', encoding='utf-8') as infile:
+        with open(output_file, 'w', encoding='utf-8') as outfile:
+            for line in infile:
+                # 使用正则表达式提取中文字符
+                chinese_characters = re.findall(r'[\u4e00-\u9fa5]+', line)
 
-def preprocess_corpus(corpus):
-    processed_corpus = []
-    
-    # 分词
-    for document in corpus:
-        tokens = word_tokenize(document)
-        
-        # 小写化
-        tokens = [word.lower() for word in tokens]
-        
-        # 去除停用词和标点符号
-        stop_words = set(stopwords.words('english'))
-        tokens = [word for word in tokens if word.isalnum() and word not in stop_words]
-        
-        processed_corpus.append(tokens)
-    
-    return processed_corpus
+                # 将提取的中文字符拼接成字符串
+                processed_line = ''.join(chinese_characters)
+                seg_list = jieba.cut(processed_line, cut_all=False)
+                processed_line = " ".join(seg_list)
 
-# 示例语料库
-corpus = [
-    "This is a sample sentence.",
-    "And here's another one.",
-    "Let's preprocess this text data!"
-]
+                # 将处理后的行写入输出文件
+                outfile.write(processed_line + '\n')
 
-# 预处理语料库
-preprocessed_corpus = preprocess_corpus(corpus)
+# 示例用法
+input_file_path = 'corpus/file.txt'
+output_file_path = 'corpus/file_processed.txt'
+process_chinese_file(input_file_path, output_file_path)
 
-# 打印预处理后的语料库
-for i, document in enumerate(preprocessed_corpus):
-    print(f"Document {i + 1}: {document}")
