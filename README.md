@@ -1,5 +1,28 @@
 # 实验
 
+## Project Tree
+```
+word2vec
+├─ .git
+├─ .gitignore
+├─ README.md
+├─ assets
+├─ docs
+│  ├─ paper.pdf
+│  ├─ word2vec 学习报告.md
+│  └─ word2vec 论文阅读.md
+├─ src
+│  ├─ wiki_corpus2txt
+│  │  ├─ README.md
+│  │  └─ src
+│  │     ├─ process_wiki.py
+│  │     └─ zh_segmentation.py
+│  ├─ word2vec_gensim.py
+│  └─ word2vec_pytorch.py
+└─ update
+
+```
+
 ## 1 gensim 实现 word2vec
 
 [gensim官方文档](https://radimrehurek.com/gensim/models/word2vec.html)

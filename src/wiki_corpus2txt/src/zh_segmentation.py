@@ -17,7 +17,6 @@ def process_chinese_file(input_file, output_file):
                 outfile.write(processed_line + '\n')
 
 # 示例用法
-input_file_path = 'corpus/file.txt'
-output_file_path = 'corpus/file_processed.txt'
+input_file_path = 'processed_corpus/wiki_data_zh.txt'
+output_file_path = 'processed_corpus/wiki_data_zh_segmented.txt'
 process_chinese_file(input_file_path, output_file_path)
-

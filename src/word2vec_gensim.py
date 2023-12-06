@@ -2,7 +2,7 @@ from gensim.models import Word2Vec
 from gensim.models.word2vec import LineSentence
 
 # 替换为你的数据文件路径
-data_file = 'corpus/file_processed.txt'
+data_file = 'corpus/text8.txt'
 
 # 使用 LineSentence 读取文本数据
 sentences = LineSentence(data_file)
@@ -26,11 +26,11 @@ model.save('./params/model.bin')
 
 # 获取词向量
 
-vector = model.wv['地球']
+vector = model.wv['production']
 
 # 查找与给定词最相似的词汇
-similar_words = model.wv.most_similar('地球', topn=5)
+similar_words = model.wv.most_similar('production', topn=5)
 
 # 打印结果
-print(f"Vector for '地球': {vector}")
-print(f"Most similar words to '地球': {similar_words}")
+print(f"Vector for 'production': {vector}")
+print(f"Most similar words to 'production': {similar_words}")

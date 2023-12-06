@@ -1,3 +1,5 @@
 .DS_Store
-param*
-corpus*
+params/*
+corpus/*
+src/wiki_corpus2txt/wiki_corpus/*
+src/wiki_corpus2txt/processed_corpus/*
